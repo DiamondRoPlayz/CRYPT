@@ -1,137 +1,295 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRYPT</title>
-    <style>
-        :root {
-            --p: #0064ff;
-            --bg: rgb(15, 15, 15);
-            --sur: rgb(24, 24, 24);
-            --txt: #f8fafc;
-            --bdr: rgb(45, 45, 45);
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        body { background-color: var(--bg); color: var(--txt); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .c { background: var(--sur); padding: 32px; border-radius: 12px; width: 100%; max-width: 400px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5); border: 1px solid var(--bdr); }
-        h2 { font-size: 20px; margin-bottom: 20px; color: var(--txt); text-align: center; }
-        .f { margin-bottom: 16px; }
-        label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 6px; text-transform: uppercase; color: #a0aec0; }
-        input { width: 100%; padding: 12px; border: 1.5px solid var(--bdr); border-radius: 6px; font-size: 14px; background: rgb(30, 30, 30); color: #fff; }
-        input:focus { outline: none; border-color: var(--p); background: rgb(35, 35, 35); }
-        button { width: 100%; padding: 12px; background: var(--p); color: white; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; }
-        button:hover { opacity: 0.9; }
-        .o, .e { margin-top: 16px; padding: 12px; border-radius: 6px; font-size: 13px; display: none; word-break: break-all; }
-        .o { background: rgb(30, 30, 30); border-left: 4px solid var(--p); color: #e2e8f0; }
-        .o a { color: var(--p); text-decoration: none; }
-        .e { background: rgb(45, 20, 20); border-left: 4px solid #ef4444; color: #fca5a5; }
-        .vs { display: none; }
-        .vs.active { display: block; }
-        .txt-d { text-align: center; font-size: 16px; font-weight: 600; margin-bottom: 16px; padding: 12px; background: rgb(30, 30, 30); border-radius: 6px; border: 1px solid var(--bdr); display: none; color: #fff; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRYPT</title>
+  <style>
+    :root {
+      --p: #0064ff;
+      --bg: rgb(15, 15, 15);
+      --sur: rgb(24, 24, 24);
+      --txt: #f8fafc;
+      --bdr: rgb(45, 45, 45);
+      color-scheme: dark only;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--txt);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .c {
+      background: var(--sur);
+      padding: 28px;
+      border-radius: 14px;
+      width: 100%;
+      max-width: 400px;
+      border: 1px solid var(--bdr);
+    }
+
+    h2 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      color: var(--txt);
+      text-align: center;
+    }
+
+    .f {
+      margin-bottom: 20px;
+    }
+
+    .lbl-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .lbl-flex span {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #94a3b8;
+      letter-spacing: 0.5px;
+    }
+
+    .gen-btn {
+      margin-inline: 12px;
+      background: rgb(32, 32, 32);
+      border: 1px solid var(--bdr);
+      color: var(--p);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      cursor: pointer;
+      font-weight: 600;
+      text-transform: none;
+      line-height: 1.2;
+      transition: all 0.2s ease;
+    }
+
+    .gen-btn:hover {
+      background: var(--p);
+      color: #ffffff;
+      border-color: var(--p);
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--bdr);
+      border-radius: 8px;
+      font-size: 14px;
+      background: rgb(30, 30, 30);
+      color: #fff;
+      transition: border-color 0.2s;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--p);
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: var(--p);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .o,
+    .e {
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      display: none;
+      word-break: break-all;
+      line-height: 1.4;
+    }
+
+    .o {
+      background: rgb(30, 30, 30);
+      border-left: 4px solid var(--p);
+      color: #e2e8f0;
+    }
+
+    .o a {
+      color: var(--p);
+      text-decoration: none;
+    }
+
+    .o a:hover {
+      text-decoration: underline;
+    }
+
+    .e {
+      background: rgb(45, 20, 20);
+      border-left: 4px solid #ef4444;
+      color: #fca5a5;
+    }
+
+    .vs {
+      display: none;
+    }
+
+    .vs.active {
+      display: block;
+    }
+
+    .txt-d {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 16px;
+      padding: 14px;
+      background: rgb(30, 30, 30);
+      border-radius: 8px;
+      border: 1px solid var(--bdr);
+      display: none;
+      color: #fff;
+    }
+  </style>
 </head>
 <body>
-    <div class="c">
-        <div id="encScr" class="vs active">
-            <h2>Encrypt</h2>
-            <div class="f">
-                <label>URL or Text</label>
-                <input type="text" id="urlIn" placeholder="https://example.com">
-            </div>
-            <div class="f">
-                <label>Password</label>
-                <input type="password" id="encPwd">
-            </div>
-            <button onclick="handleE()">Generate</button>
-            <div id="encOut" class="o"></div>
+  <div class="c">
+    <div id="encScr" class="vs active">
+      <h2>Encrypt</h2>
+      <div class="f">
+        <label
+          style="display:block; font-size:11px; font-weight:600; margin-bottom:8px; text-transform:uppercase; color:#94a3b8; letter-spacing:0.5px;">URL
+          or Text</label>
+        <input type="text" id="urlIn" placeholder="https://example.com">
+      </div>
+      <div class="f">
+        <div class="lbl-flex">
+          <span>Password</span>
+          <button class="gen-btn" onclick="genPswd()">Random Password</button>
         </div>
-        <div id="decScr" class="vs">
-            <h2>Access</h2>
-            <div id="decP">
-                <div class="f">
-                    <label>Password</label>
-                    <input type="password" id="decPwd">
-                </div>
-                <button onclick="handleD()">Submit</button>
-            </div>
-            <div id="txtD" class="txt-d"></div>
-            <div id="decOut" class="o">
-                <button id="redBtn" onclick="execR()" style="margin-bottom:8px; width: 100%;">Go Now</button>
-            </div>
-            <div id="errM" class="e"></div>
-        </div>
+        <input type="text" id="encPwd" placeholder="••••••••">
+      </div>
+      <button onclick="handleE()" style="margin-top: 4px;">Generate</button>
+      <div id="encOut" class="o"></div>
     </div>
-    <script>
-        function s2ab(str) { return new TextEncoder().encode(str); }
-        function ab2str(buf) { return new TextDecoder().decode(buf); }
-        async function getK(pwd, salt, act) {
-            const km = await window.crypto.subtle.importKey("raw", s2ab(pwd), {name: "PBKDF2"}, false, ["deriveKey"]);
-            return await window.crypto.subtle.deriveKey({name: "PBKDF2", salt, iterations: 100000, hash: "SHA-256"}, km, {name: "AES-GCM", length: 256}, false, [act]);
+    <div id="decScr" class="vs">
+      <h2>Access</h2>
+      <div id="decP">
+        <div class="f">
+          <label
+            style="display:block; font-size:11px; font-weight:600; margin-bottom:8px; text-transform:uppercase; color:#94a3b8; letter-spacing:0.5px;">Password</label>
+          <input type="password" id="decPwd">
+        </div>
+        <button onclick="handleD()">Submit</button>
+      </div>
+      <div id="txtD" class="txt-d"></div>
+      <div id="decOut" class="o">
+        <button id="redBtn" onclick="execR()" style="width: 100%;">Go Now</button>
+      </div>
+      <div id="errM" class="e"></div>
+    </div>
+  </div>
+  <script>
+    function s2ab(str) { return new TextEncoder().encode(str); }
+    function ab2str(buf) { return new TextDecoder().decode(buf); }
+    async function getK(pwd, salt, act) {
+      const km = await window.crypto.subtle.importKey("raw", s2ab(pwd), { name: "PBKDF2" }, false, ["deriveKey"]);
+      return await window.crypto.subtle.deriveKey({ name: "PBKDF2", salt, iterations: 100000, hash: "SHA-256" }, km, { name: "AES-GCM", length: 256 }, false, [act]);
+    }
+    async function enc(txt, pwd) {
+      const salt = window.crypto.getRandomValues(new Uint8Array(16));
+      const iv = window.crypto.getRandomValues(new Uint8Array(12));
+      const k = await getK(pwd, salt, "encrypt");
+      const d = await window.crypto.subtle.encrypt({ name: "AES-GCM", iv }, k, s2ab(txt));
+      const comb = new Uint8Array(salt.length + iv.length + d.byteLength);
+      comb.set(salt, 0);
+      comb.set(iv, salt.length);
+      comb.set(new Uint8Array(d), salt.length + iv.length);
+      return btoa(String.fromCharCode.apply(null, comb));
+    }
+    async function dec(b64, pwd) {
+      try {
+        const bs = atob(b64), bytes = new Uint8Array(bs.length);
+        for (let i = 0; i < bs.length; i++) bytes[i] = bs.charCodeAt(i);
+        const k = await getK(pwd, bytes.slice(0, 16), "decrypt");
+        const d = await window.crypto.subtle.decrypt({ name: "AES-GCM", iv: bytes.slice(16, 28) }, k, bytes.slice(28));
+        return ab2str(d);
+      } catch { throw new Error("Failed"); }
+    }
+    function genPswd() {
+      const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      const length = Math.floor(Math.random() * 9) + 8;
+      let res = '';
+      for (let i = 0; i < length; i++) {
+        res += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      document.getElementById('encPwd').value = res;
+    }
+    let rUrl = "";
+    async function handleE() {
+      const u = document.getElementById('urlIn').value.trim(), p = document.getElementById('encPwd').value, o = document.getElementById('encOut');
+      if (!u || !p) return;
+      try {
+        const e = await enc(u, p);
+        const l = window.location.origin + window.location.pathname + '#' + e;
+        o.style.display = 'block';
+        o.innerHTML = `Link: <a href="${l}" target="_blank">${l}</a>`;
+      } catch (err) { alert(err.message); }
+    }
+    async function handleD() {
+      const p = document.getElementById('decPwd').value, h = window.location.hash.substring(1);
+      const o = document.getElementById('decOut'), pB = document.getElementById('decP'), eB = document.getElementById('errM');
+      const rB = document.getElementById('redBtn'), tD = document.getElementById('txtD');
+      if (!p || !h) return;
+      try {
+        const dT = await dec(h, p);
+        rUrl = dT;
+        pB.style.display = 'none';
+        eB.style.display = 'none';
+        if (dT.startsWith('http://') || dT.startsWith('https://')) {
+          o.style.display = 'block'; rB.innerText = `Redirecting to\n${dT}\nin 3 seconds...`;
+          setTimeout(() => rB.innerText = `Redirecting to\n${dT}\nin 2 seconds..`, 1e3);
+          setTimeout(() => rB.innerText = `Redirecting to\n${dT}\nin 1 second.`, 2e3);
+          setTimeout(execR, 3e3);
+        } else {
+          tD.style.display = 'block';
+          tD.innerText = dT;
         }
-        async function enc(txt, pwd) {
-            const salt = window.crypto.getRandomValues(new Uint8Array(16));
-            const iv = window.crypto.getRandomValues(new Uint8Array(12));
-            const k = await getK(pwd, salt, "encrypt");
-            const d = await window.crypto.subtle.encrypt({name: "AES-GCM", iv}, k, s2ab(txt));
-            const comb = new Uint8Array(salt.length + iv.length + d.byteLength);
-            comb.set(salt, 0);
-            comb.set(iv, salt.length);
-            comb.set(new Uint8Array(d), salt.length + iv.length);
-            return btoa(String.fromCharCode.apply(null, comb));
-        }
-        async function dec(b64, pwd) {
-            try {
-                const bs = atob(b64), bytes = new Uint8Array(bs.length);
-                for (let i = 0; i < bs.length; i++) bytes[i] = bs.charCodeAt(i);
-                const k = await getK(pwd, bytes.slice(0, 16), "decrypt");
-                const d = await window.crypto.subtle.decrypt({name: "AES-GCM", iv: bytes.slice(16, 28)}, k, bytes.slice(28));
-                return ab2str(d);
-            } catch { throw new Error("Failed"); }
-        }
-        let rUrl = "";
-        async function handleE() {
-            const u = document.getElementById('urlIn').value.trim(), p = document.getElementById('encPwd').value, o = document.getElementById('encOut');
-            if (!u || !p) return;
-            try {
-                const e = await enc(u, p);
-                const l = window.location.origin + window.location.pathname + '#' + e;
-                o.style.display = 'block';
-                o.innerHTML = `Link: <a href="${l}" target="_blank">${l}</a>`;
-            } catch (err) { alert(err.message); }
-        }
-        async function handleD() {
-            const p = document.getElementById('decPwd').value, h = window.location.hash.substring(1);
-            const o = document.getElementById('decOut'), pB = document.getElementById('decP'), eB = document.getElementById('errM');
-            const rB = document.getElementById('redBtn'), tD = document.getElementById('txtD');
-            if (!p || !h) return;
-            try {
-                const dT = await dec(h, p);
-                rUrl = dT;
-                pB.style.display = 'none';
-                eB.style.display = 'none';
-                
-                if (dT.startsWith('http://') || dT.startsWith('https://')) {
-                    o.style.display='block';rB.innerText=`Redirecting to ${dT} in 3...`;
-                    setTimeout(()=>rB.innerText=`Redirecting to ${dT} in 2..`,1e3);
-                    setTimeout(()=>rB.innerText=`Redirecting to ${dT} in 1.`,2e3);
-                    setTimeout(execR,3e3);
-                } else {
-                    tD.style.display = 'block';
-                    tD.innerText = dT;
-                }
-            } catch (err) {
-                eB.style.display = 'block';
-                eB.innerText = "Invalid password or code.";
-            }
-        }
-        function execR() { if (rUrl) window.location.href = rUrl; }
-        window.addEventListener('load', () => {
-            if (window.location.hash.substring(1)) {
-                document.getElementById('encScr').classList.remove('active');
-                document.getElementById('decScr').classList.add('active');
-            }
-        });
-    </script>
+      } catch (err) {
+        eB.style.display = 'block';
+        eB.innerText = "Invalid password or code.";
+      }
+    }
+    function execR() { if (rUrl) window.location.href = rUrl; }
+    window.addEventListener('load', () => {
+      if (window.location.hash.substring(1)) {
+        document.getElementById('encScr').classList.remove('active');
+        document.getElementById('decScr').classList.add('active');
+      }
+    });
+  </script>
 </body>
 </html>
